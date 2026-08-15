@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/*
+  Design tokens — dusk over a Bombay music-shop street, circa the images
+  supplied for this build: marigold streetlamp glow, poster-flame red,
+  aged cassette-insert paper. Kept to a small, named set.
+*/
+@theme {
+  --color-ink: #15100b;
+  --color-ink-2: #1f1811;
+  --color-accent: #e3963a;
+  --color-accent-2: #c1483c;
+  --color-paper: #ece0c3;
+
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-manrope), "Segoe UI", sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hero-bg {
+  position: fixed;
+  inset: 0;
+  background-image: url("/bg/scene-wide.png");
+}
+
+@media (orientation: portrait) {
+  .hero-bg {
+    background-image: url("/bg/scene-tall.png");
+  }
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  mix-blend-mode: overlay;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.clock-colon {
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.vinyl-spin {
+  animation: spin 8s linear infinite;
+  /* animation-play-state is set inline from playback state */
+}
+
+.tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vinyl-spin,
+  .clock-colon {
+    animation: none !important;
+  }
+}
+
+/* Player: hide browser focus rings / tap highlights that can show over artwork */
+.player-root :focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.player-root * {
+  -webkit-tap-highlight-color: transparent;
+}
